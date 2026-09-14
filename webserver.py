@@ -24,3 +24,13 @@ def new_transcation():
         return "Transaction submitted successfully!"
     
 node.run()
+
+miner_address = "q3nf394hjg-random-miner-address-34nf3i4nflkn3oi"
+
+def proof_of_work(last_proof):
+    #create a variable that we will use to find the next proof of work
+    incrementor = last_proof + 1
+    #keep incrementing the incrementor until it's equal to a number divisible by 9 and the proof of work of the previous block
+    while not (incrementor % 9 == 0 and incrementor % last_proof == 0):
+        incrementor += 1
+    return incrementor
