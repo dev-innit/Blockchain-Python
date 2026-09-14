@@ -134,7 +134,9 @@ Stop the server with `Ctrl+C` in the WSL terminal.
 ## Project Files
 
 ```text
-main.py       Flask application and blockchain implementation
+main.py       Compatibility entry point used to start the server
+app.py        Flask routes and HTTP request handling
+blockchain.py Blockchain models, mining, and chain state
 README.md     Project documentation
 .gitignore    Ignored local, generated, and experimental files
 ```

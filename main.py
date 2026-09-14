@@ -1,13 +1,14 @@
+from app import node
 from flask import Flask
 from flask import request
 import json
 from urllib.request import urlopen
 import hashlib as hasher
 import datetime as date
-node = Flask(__name__)
+legacy_node = Flask(__name__)
 
 
-@node.route('/', methods=['GET'])
+@legacy_node.route('/', methods=['GET'])
 def home():
   return "SnakeCoin blockchain is running"
 
@@ -56,7 +57,7 @@ peer_nodes = []
 # A variable to deciding if we're mining or not
 mining = True
 
-@node.route('/txion', methods=['POST'])
+@legacy_node.route('/txion', methods=['POST'])
 def transaction():
   # On each new POST request,
   # we extract the transaction data
@@ -72,7 +73,7 @@ def transaction():
   # Then we let the client know it worked out
   return "Transaction submission successful\n"
 
-@node.route('/blocks', methods=['GET'])
+@legacy_node.route('/blocks', methods=['GET'])
 def get_blocks():
   chain_to_send = []
   # Convert our blocks into dictionaries
@@ -135,7 +136,7 @@ def proof_of_work(last_proof):
   # of our work
   return incrementor
 
-@node.route('/mine', methods = ['GET'])
+@legacy_node.route('/mine', methods = ['GET'])
 def mine():
   # Get the last proof of work
   last_block = blockchain[len(blockchain) - 1]
