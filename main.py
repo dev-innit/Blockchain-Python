@@ -35,3 +35,6 @@ def next_block(last_block):
 # blockchain and genesis block
 blockchain = [create_genesis_block()]
 previous_block = blockchain[0]
+
+#adding of blocks to the chain
+num_of_blocks_to_add = 31
