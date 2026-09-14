@@ -41,3 +41,17 @@ def mine():
     last_proof = last_block.data['proof-of-work']
     
     proof = proof_of_work(last_proof)
+    
+    this_transcations.append(
+        
+        {
+            'from': "network",
+            'to': miner_address,
+            'amount': 1
+        }
+    )
+    
+    #new block creation
+    new_block_index = last_block.index + 1
+    new_block_timestamp =  this_timestamp = date.datetime.now()
+    last_block_hash = last_block.hash
