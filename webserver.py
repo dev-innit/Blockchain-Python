@@ -34,3 +34,10 @@ def proof_of_work(last_proof):
     while not (incrementor % 9 == 0 and incrementor % last_proof == 0):
         incrementor += 1
     return incrementor
+
+@node.route('/mine', methods=['GET'])
+def mine():
+    last_block = blockchain[len(blockchain) - 1]
+    last_proof = last_block.data['proof-of-work']
+    
+    proof = proof_of_work(last_proof)
