@@ -6,6 +6,11 @@ import hashlib as hasher
 import datetime as date
 node = Flask(__name__)
 
+
+@node.route('/', methods=['GET'])
+def home():
+  return "SnakeCoin blockchain is running"
+
 # Define what a Snakecoin block is
 class Block:
   def __init__(self, index, timestamp, data, previous_hash):
@@ -173,3 +178,8 @@ def mine():
       "data": new_block_data,
       "hash": last_block_hash
   }) + "\n"
+
+if __name__ == '__main__':
+  # Threaded option to enable multiple
+  # instances of our Flask application
+  node.run()
