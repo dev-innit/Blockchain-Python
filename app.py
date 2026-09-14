@@ -31,6 +31,12 @@ def get_blocks():
     return jsonify(blockchain.get_chain())
 
 
+@node.route("/validate", methods=["GET"])
+def validate():
+    valid = blockchain.validate_chain()
+    return jsonify({"valid": valid}), 200 if valid else 409
+
+
 @node.route("/mine", methods=["GET"])
 def mine():
     mined_block = blockchain.mine_block()

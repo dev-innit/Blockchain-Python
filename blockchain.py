@@ -82,6 +82,38 @@ def get_chain():
     return [block_to_dict(block) for block in blockchain]
 
 
+def validate_chain(chain=None):
+    chain = blockchain if chain is None else chain
+    if not chain:
+        return False
+
+    for index, block in enumerate(chain):
+        if block.hash != block.hash_block():
+            return False
+
+        if index == 0:
+            if block.index != 0 or block.previous_hash != "0":
+                return False
+            continue
+
+        previous_block = chain[index - 1]
+        if block.index != previous_block.index + 1:
+            return False
+        if block.previous_hash != previous_block.hash:
+            return False
+
+        if not isinstance(block.data, dict):
+            return False
+        proof = block.data.get("proof-of-work")
+        previous_proof = previous_block.data.get("proof-of-work")
+        if not isinstance(proof, int) or not isinstance(previous_proof, int):
+            return False
+        if not (proof % 9 == 0 and proof % max(previous_proof, 1) == 0):
+            return False
+
+    return True
+
+
 def find_new_chains():
     other_chains = []
     for node_url in peer_nodes:

@@ -15,6 +15,7 @@ This is an educational prototype. It is not production cryptocurrency software.
 - Mining adds a reward transaction for the miner.
 - A simple proof-of-work algorithm searches for a number divisible by 9 and the
 	previous proof.
+- Chain validation checks block hashes, links, indexes, and proof of work.
 - Flask exposes the blockchain through HTTP endpoints.
 
 ## Requirements
@@ -110,6 +111,19 @@ curl.exe http://127.0.0.1:5000/mine
 
 Mining adds the waiting transactions and a reward transaction to a new block.
 
+### Validate the blockchain
+
+```http
+GET /validate
+```
+
+```powershell
+curl.exe http://127.0.0.1:5000/validate
+```
+
+The endpoint returns `{"valid": true}` for an intact chain. It returns a
+conflict response if a block has been modified or its link is broken.
+
 ## Recommended Test Sequence
 
 Use two terminals. Run the server in WSL, then run these commands from a second
@@ -127,6 +141,7 @@ Invoke-RestMethod `
 
 curl.exe http://127.0.0.1:5000/mine
 curl.exe http://127.0.0.1:5000/blocks
+curl.exe http://127.0.0.1:5000/validate
 ```
 
 Stop the server with `Ctrl+C` in the WSL terminal.
